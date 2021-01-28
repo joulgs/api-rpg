@@ -23,11 +23,13 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
+            <directory suffix="api.php">./routes</directory>
+            <directory suffix="DiceController.php">./app/Http/Controllers/v1</directory>
             <file>./app</file>
             <exclude>
                 <directory suffix=".php">./app/Console</directory>
                 <directory suffix=".php">./app/Exceptions</directory>
-                <directory suffix=".php">./app/Http</directory>
+                <directory suffix=".php">./app/Http/Middleware</directory>
                 <directory suffix=".php">./app/Models</directory>
                 <directory suffix=".php">./app/Providers</directory>
             </exclude>
