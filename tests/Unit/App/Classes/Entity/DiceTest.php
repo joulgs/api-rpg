@@ -13,11 +13,10 @@ class DiceRollTest extends TestCase
     public function ensuresCorrectCalculation()
     {
         $dice = new Dice();
-        $dice->setSides(20);
+        $dice->setSides('20');
 
         $rolling = $dice->roll();
 
         $this->assertIsInt($rolling);
-
     }
 }
