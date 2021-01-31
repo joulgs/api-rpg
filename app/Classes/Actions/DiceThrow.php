@@ -7,8 +7,9 @@ use App\Classes\Entity\Dice;
 class DiceThrow
 {
     private $move;
-    private $hand;
-    protected const DICE_DELIMITER = 'D';
+    private $bonus;
+
+    private const DICE_DELIMITER = 'D';
 
     public function roll()
     {
@@ -22,11 +23,11 @@ class DiceThrow
             {
                 $result += $dice->roll();
             }
-
         }
 
-        return $result;
+        $result += $this->getBonus();
 
+        return $result;
     }
 
     public function setMove(String $comand) : void
@@ -41,9 +42,24 @@ class DiceThrow
 
         foreach($plays as $key => $play)
         {
-            $hand[$key] = explode(self::DICE_DELIMITER,$play);
+            if( strpos($play,self::DICE_DELIMITER) > 0)
+            {
+                $hand[$key] = explode(self::DICE_DELIMITER,$play);
+            } else {
+                $this->addBonus($play);
+            }
         }
 
         return $hand;
+    }
+
+    private function addBonus($value) : void
+    {
+        $this->bonus += $value;
+    }
+
+    private function getBonus()
+    {
+        return $this->bonus;
     }
 }

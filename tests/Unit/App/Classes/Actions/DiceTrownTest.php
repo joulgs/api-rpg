@@ -35,6 +35,8 @@ class DiceRollTest extends TestCase
             'MoreAmountOfDicesWhitTwoTypes' => ['throw' => '2d2+1D4', 'max' => 8],
             'VerifyMaxValue' => ['throw' => '1d1+1D1', 'max' => 2],
             'MoreAmountOfDicesOfSameTypes' => ['throw' => '2d2+2D2', 'max' => 8],
+            'simpleHandWhitBonusAdd' => ['throw' => '1d20+2', 'max' => 22],
+            'testWhitBonus' => ['throw' => '1d1+2', 'max' => 3],
         ];
     }
 }
