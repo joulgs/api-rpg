@@ -6,15 +6,19 @@ use App\Classes\Entity\Dice;
 
 class DiceThrow
 {
-    private $move;
-    private $bonus;
-
     private const DICE_DELIMITER = 'D';
+    private const DICE_CONCATENATOR = '&';
+    private $move;
+    private $bonus = 0;
 
     public function roll()
     {
-        $hand = $this->splitMove();
         $result = 0;
+
+        $this->bonus($this->move);
+
+        $hand = $this->splitMove();
+
         foreach ($hand as $play)
         {
             $dice = new Dice;
@@ -37,23 +41,18 @@ class DiceThrow
 
     private function splitMove()
     {
-        $plays = explode('+', $this->move);
+        $plays = explode(self::DICE_CONCATENATOR, $this->move);
         $hand = [];
 
         foreach($plays as $key => $play)
         {
-            if( strpos($play,self::DICE_DELIMITER) > 0)
-            {
-                $hand[$key] = explode(self::DICE_DELIMITER,$play);
-            } else {
-                $this->addBonus($play);
-            }
+            $hand[$key] = explode(self::DICE_DELIMITER,$play);
         }
 
         return $hand;
     }
 
-    private function addBonus($value) : void
+    private function setBonus($value) : void
     {
         $this->bonus += $value;
     }
@@ -61,5 +60,30 @@ class DiceThrow
     private function getBonus()
     {
         return $this->bonus;
+    }
+
+    private function hasBonus($value)
+    {
+        if(strpos($value, '+') > 0 || strpos($value, '-') > 0)
+            return true;
+
+        return false;
+    }
+
+    private function bonus($value)
+    {
+        if( ! $this->hasBonus($value))
+            return;
+
+        if(strpos($value, '+') > 0)
+            $delimiter = '+';
+        else
+            $delimiter = '-';
+
+        $playAndBonus = explode($delimiter, $value);
+        $this->setMove($playAndBonus[0]);
+
+        $bonusValue = intval($delimiter.$playAndBonus[1]);
+        $this->setBonus($bonusValue);
     }
 }
