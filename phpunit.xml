@@ -11,6 +11,12 @@
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./app/Domains</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./app/Applications</directory>
+        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>
@@ -23,15 +29,10 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
-            <directory suffix="api.php">./routes</directory>
-            <directory suffix="DiceController.php">./app/Http/Controllers/v1</directory>
             <file>./app</file>
             <exclude>
-                <directory suffix=".php">./app/Console</directory>
-                <directory suffix=".php">./app/Exceptions</directory>
-                <directory suffix=".php">./app/Http/Middleware</directory>
-                <directory suffix=".php">./app/Models</directory>
-                <directory suffix=".php">./app/Providers</directory>
+                <directory suffix=".php">./app/Core</directory>
+                <directory suffix="Test.php">./app</directory>
             </exclude>
         </whitelist>
     </filter>
